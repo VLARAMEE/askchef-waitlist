@@ -161,6 +161,13 @@ export default function App() {
           color: #003c32;
         }
 
+        .highlight p {
+          margin: 0;
+          font-size: 14px;
+          line-height: 1.65;
+          color: rgba(14, 59, 49, 0.70);
+        }
+
         .phone-wrap {
           position: relative;
           width: 320px;
@@ -335,14 +342,26 @@ export default function App() {
                     <br />
                     hands-free
                   </h3>
+                  <p>
+                    Ask questions while cooking and get quick answers without
+                    touching your phone every minute.
+                  </p>
                 </div>
 
                 <div className="highlight">
                   <h3>Turn any recipe into a guided session</h3>
+                  <p>
+                    AskChef helps you move through ingredients, steps, and
+                    timing more naturally.
+                  </p>
                 </div>
 
                 <div className="highlight">
                   <h3>Built for real kitchens</h3>
+                  <p>
+                    Designed for messy hands, split attention, and those moments
+                    when you just need the next step fast.
+                  </p>
                 </div>
               </div>
 
