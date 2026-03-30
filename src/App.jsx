@@ -1,7 +1,56 @@
+import { useState } from "react";
+import { supabase } from "./supabase.Client";
+
 export default function App() {
-  const handleSubmit = (event) => {
+  const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState(null);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    alert("This form is not connected yet. We will hook it up later.");
+
+    const cleanFirstName = firstName.trim();
+    const cleanEmail = email.trim().toLowerCase();
+
+    if (!cleanFirstName || !cleanEmail) {
+      setSubmitMessage({
+        type: "error",
+        text: "Please enter both your first name and email.",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitMessage(null);
+
+    try {
+      const { error } = await supabase.from("waitlist_signups").insert([
+        { first_name: cleanFirstName, email: cleanEmail },
+      ]);
+
+      if (error) {
+        setSubmitMessage({
+          type: "error",
+          text: "Something went wrong. Please try again.",
+        });
+        return;
+      }
+
+      setFirstName("");
+      setEmail("");
+      setSubmitMessage({
+        type: "success",
+        text: "You are on the waitlist. We will be in touch soon.",
+      });
+    } catch {
+      setSubmitMessage({
+        type: "error",
+        text: "Something went wrong. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -132,12 +181,31 @@ export default function App() {
           background: #003c32;
         }
 
+        .button:disabled {
+          opacity: 0.8;
+          cursor: wait;
+        }
+
         .fine-print {
           margin: 14px 4px 0;
           max-width: 520px;
           font-size: 12px;
           line-height: 1.5;
           color: rgba(14, 59, 49, 0.56);
+        }
+
+        .submit-message {
+          margin: 12px 4px 0;
+          font-size: 13px;
+          line-height: 1.5;
+        }
+
+        .submit-message.success {
+          color: #0e3b31;
+        }
+
+        .submit-message.error {
+          color: #8a2c2c;
         }
 
         .highlights {
@@ -369,16 +437,22 @@ export default function App() {
                 <div className="form-grid">
                   <input
                     className="input"
+                    disabled={isSubmitting}
                     type="text"
+                    value={firstName}
                     placeholder="First name"
+                    onChange={(event) => setFirstName(event.target.value)}
                   />
                   <input
                     className="input"
+                    disabled={isSubmitting}
                     type="email"
+                    value={email}
                     placeholder="Email address"
+                    onChange={(event) => setEmail(event.target.value)}
                   />
-                  <button className="button" type="submit">
-                    Notify me
+                  <button className="button" type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? "Joining..." : "Notify me"}
                   </button>
                 </div>
 
@@ -387,6 +461,15 @@ export default function App() {
                   <br />
                   No spam, just launch updates and early access news.
                 </div>
+
+                {submitMessage ? (
+                  <div
+                    className={`submit-message ${submitMessage.type}`}
+                    aria-live="polite"
+                  >
+                    {submitMessage.text}
+                  </div>
+                ) : null}
               </form>
             </section>
 
