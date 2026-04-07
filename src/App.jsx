@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { trackEvent } from "./analytics";
 import { supabase } from "./supabase.Client";
 
 export default function App() {
@@ -39,6 +40,7 @@ export default function App() {
 
       setFirstName("");
       setEmail("");
+      trackEvent("waitlist_signup", { method: "waitlist_form" });
       setSubmitMessage({
         type: "success",
         text: "You are on the waitlist. We will be in touch soon.",

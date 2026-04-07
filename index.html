@@ -5,6 +5,25 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>askchef-waitlist</title>
+    <script type="module">
+      const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+
+      if (measurementId) {
+        const googleTagScript = document.createElement("script");
+        googleTagScript.async = true;
+        googleTagScript.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+        document.head.appendChild(googleTagScript);
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function gtag() {
+          window.dataLayer.push(arguments);
+        };
+
+        // Vite injects env vars here, so GA4 stays optional by environment.
+        window.gtag("js", new Date());
+        window.gtag("config", measurementId);
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
