@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { trackEvent } from "./analytics";
 import { supabase } from "./supabase.Client";
+import askChefPhoneScreen from "./assets/askchef-phone-screen.png";
 
 export default function App() {
   const [firstName, setFirstName] = useState("");
@@ -272,85 +273,19 @@ export default function App() {
           border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
-        .phone-notch {
-          position: absolute;
-          top: 12px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 108px;
-          height: 28px;
-          border-radius: 18px;
-          background: #111111;
-          z-index: 2;
-        }
-
         .screen {
           position: relative;
           height: 100%;
-          padding: 64px 18px 18px;
-          background:
-            linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.16)),
-            #f7efe4;
+          overflow: hidden;
+          background: #f7efe4;
         }
 
-        .screen-placeholder {
+        .screen-image {
+          display: block;
           height: 100%;
-          border-radius: 28px;
-          border: 1.5px dashed rgba(14, 59, 49, 0.28);
-          background:
-            linear-gradient(180deg, rgba(14, 59, 49, 0.03), rgba(14, 59, 49, 0.09)),
-            repeating-linear-gradient(
-              -45deg,
-              rgba(14, 59, 49, 0.03),
-              rgba(14, 59, 49, 0.03) 14px,
-              rgba(255, 255, 255, 0.28) 14px,
-              rgba(255, 255, 255, 0.28) 28px
-            );
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          padding: 28px 22px;
-        }
-
-        .placeholder-badge {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 60px;
-          height: 60px;
-          border-radius: 18px;
-          background: rgba(14, 59, 49, 0.10);
-          color: #003c32;
-          font-size: 24px;
-          font-weight: 700;
-        }
-
-        .placeholder-title {
-          margin: 18px 0 8px;
-          font-size: 22px;
-          font-weight: 700;
-          color: #003c32;
-        }
-
-        .placeholder-copy {
-          margin: 0;
-          max-width: 220px;
-          font-size: 14px;
-          line-height: 1.7;
-          color: rgba(14, 59, 49, 0.72);
-        }
-
-        .placeholder-chip {
-          margin-top: 18px;
-          padding: 8px 12px;
-          border-radius: 999px;
-          background: rgba(255, 255, 255, 0.72);
-          border: 1px solid rgba(14, 59, 49, 0.12);
-          font-size: 12px;
-          font-weight: 600;
-          color: rgba(14, 59, 49, 0.72);
+          width: 100%;
+          object-fit: cover;
+          object-position: top center;
         }
 
         @media (max-width: 980px) {
@@ -481,20 +416,12 @@ export default function App() {
 
                 <div className="phone-shell">
                   <div className="phone-inner">
-                    <div className="phone-notch"></div>
-
                     <div className="screen">
-                      <div className="screen-placeholder">
-                        <div className="placeholder-badge">A</div>
-                        <div className="placeholder-title">App screenshot</div>
-                        <p className="placeholder-copy">
-                          This iPhone-sized frame is ready for the real AskChef
-                          screen capture once we have it.
-                        </p>
-                        <div className="placeholder-chip">
-                          Drop in the production screenshot here
-                        </div>
-                      </div>
+                      <img
+                        className="screen-image"
+                        src={askChefPhoneScreen}
+                        alt="AskChef ingredients screen"
+                      />
                     </div>
                   </div>
                 </div>
