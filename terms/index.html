@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" sizes="180x180" href="/askchef-logo-180.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/askchef-logo-180.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms of Use | AskChef</title>
+    <meta
+      name="description"
+      content="Read the AskChef Terms of Use for the AskChef app, website, and related services."
+    />
+    <link rel="canonical" href="https://www.ask-chef.com/terms" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "AskChef",
+        "url": "https://www.ask-chef.com/",
+        "logo": "https://www.ask-chef.com/askchef-logo-180.png"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Terms of Use | AskChef",
+        "url": "https://www.ask-chef.com/terms",
+        "description": "Read the AskChef Terms of Use for the AskChef app, website, and related services."
+      }
+    </script>
+    <script type="module">
+      const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+
+      if (measurementId) {
+        const googleTagScript = document.createElement("script");
+        googleTagScript.async = true;
+        googleTagScript.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+        document.head.appendChild(googleTagScript);
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function gtag() {
+          window.dataLayer.push(arguments);
+        };
+
+        // Vite injects env vars here, so GA4 stays optional by environment.
+        window.gtag("js", new Date());
+        window.gtag("config", measurementId);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

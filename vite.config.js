@@ -9,7 +9,11 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
+        whatWeDo: fileURLToPath(new URL('./what-we-do/index.html', import.meta.url)),
+        faq: fileURLToPath(new URL('./faq/index.html', import.meta.url)),
         support: fileURLToPath(new URL('./support/index.html', import.meta.url)),
+        terms: fileURLToPath(new URL('./terms/index.html', import.meta.url)),
+        privacy: fileURLToPath(new URL('./privacy/index.html', import.meta.url)),
       },
     },
   },
