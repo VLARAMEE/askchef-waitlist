@@ -373,7 +373,7 @@ function SiteFooter() {
     <footer className="site-footer">
       <div>
         <strong>AskChef</strong>
-        <span>AI cooking support for real kitchens.</span>
+        <span>AI cooking support for real kitchens by Initiatives VLA inc.</span>
       </div>
 
       <nav className="footer-links" aria-label="Footer navigation">
