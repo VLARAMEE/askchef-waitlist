@@ -1,7 +1,7 @@
 # AskChef Privacy Policy
 
 **Effective date:** May 13, 2026  
-**Last updated:** May 13, 2026
+**Last updated:** July 2, 2026
 
 AskChef ("**AskChef**," "**we**," "**our**," or "**us**") respects your privacy. This Privacy Policy explains how we collect, use, disclose, and protect personal information when you use the AskChef mobile application, the AskChef website at **ask-chef.com**, and any related services, features, content, communications, or support channels that link to this Privacy Policy (collectively, the "**Services**").
 
@@ -50,7 +50,7 @@ When you use the Services, we may automatically collect:
 - **Device and technical information**, such as device type, operating system, browser type, app version, language, crash data, diagnostics, and similar technical identifiers.
 - **Usage information**, such as pages viewed, screens visited, features used, session activity, timestamps, interactions, and referral information.
 - **Log information**, such as IP address, approximate location derived from IP, access times, error logs, and security events.
-- **Cookie and similar technology data** on the website, such as analytics data, session data, and preference data.
+- **Cookie, advertising SDK, and similar technology data**, such as IP address, app- or device-bounded identifiers, ads viewed, ad interactions, consent choices, diagnostics, performance data, and other data used for ad delivery, measurement, fraud prevention, and safety.
 
 ### C. Information from third parties
 
@@ -58,6 +58,7 @@ We may receive information from:
 
 - authentication providers when you sign in using a third-party account;
 - app stores and payment processors regarding subscription or purchase status;
+- advertising providers, including Google AdMob, that help serve, measure, and keep ads safer;
 - analytics, hosting, security, and infrastructure providers;
 - speech, OCR, or AI service providers acting on our behalf; and
 - your device or operating system when you use native features such as microphone, notifications, or Siri/Shortcuts integrations.
@@ -72,6 +73,7 @@ We use personal information for the following purposes:
 - to process your voice and text questions and generate cooking assistance;
 - to personalize your experience, including units, temperature format, voice options, and other settings;
 - to support recipe import, OCR, image processing, and other requested features;
+- to serve non-personalized or contextual ads, limit repeated ads, measure aggregate ad delivery, prevent advertising fraud, and manage ad safety;
 - to communicate with you about your account, transactions, support requests, updates, and important service notices;
 - to send marketing or promotional communications where permitted by law and subject to your choices;
 - to monitor performance, troubleshoot bugs, analyze usage, and improve reliability and product design;
@@ -93,10 +95,8 @@ This means that recipe content, text prompts, voice inputs, transcripts, images,
 
 AskChef does **not** use solely automated processing to make decisions about you that produce legal or similarly significant effects.
 
-**Launch language:**  
-As of the Effective Date, AskChef does not use your recipe content, voice content, or question content for cross-context behavioral advertising, and does not sell personal information.
+As of the Effective Date, AskChef may use Google AdMob to show non-personalized or contextual ads. The Google Mobile Ads SDK and Google advertising partners may process limited device, advertising, and interaction data, such as IP address, app- or device-bounded identifiers, ads viewed, ad interactions, diagnostics, and performance data. This processing supports ad delivery, frequency control, aggregate measurement, fraud prevention, and ad safety. AskChef does not use your recipe content, voice content, or question content for behavioral ad targeting, cross-context behavioral advertising, or ad personalization.
 
-**Launch language:**  
 AskChef may use aggregated or de-identified data to analyze usage, improve features, and develop the Services. If we ever want to use personal content beyond providing the Services you requested, we will update this Privacy Policy and obtain any consent required by law.
 
 ## 6. Legal bases for processing
@@ -123,10 +123,11 @@ We may share information with vendors and service providers that help us operate
 - customer support tools;
 - email and communications tools;
 - speech, transcription, OCR, and AI processing;
+- advertising, ad delivery, ad measurement, and brand safety;
 - payment and subscription management; and
 - security, fraud prevention, and monitoring services.
 
-These parties are authorized to use your information only as needed to provide services to us or as otherwise permitted by law.
+These parties are authorized to use your information only as needed to provide services to us or as otherwise permitted by law. We require service providers that process personal information on our behalf to protect it consistently with this Privacy Policy and applicable law and not to use it for unrelated purposes.
 
 ### B. Corporate transactions
 
@@ -150,17 +151,19 @@ We may share information when you ask us to do so or when you intentionally use 
 
 We may use and disclose de-identified or aggregated information that does not reasonably identify you, subject to applicable law.
 
-## 8. Cookies, analytics, and similar technologies
+## 8. Cookies, advertising, analytics, and similar technologies
 
-On our website, we and our service providers may use cookies, SDKs, pixels, local storage, and similar technologies to:
+In the app and on our website, we and our service providers, including Google AdMob, may use SDKs, cookies, pixels, local storage, and similar technologies to:
 
 - keep the website working;
 - remember preferences;
+- serve non-personalized or contextual ads;
+- measure ad delivery and help prevent inappropriate ads;
 - understand usage and performance;
 - measure campaigns or referrals; and
 - improve the user experience.
 
-Where required by law, we will ask for consent before using non-essential cookies or similar technologies. You can also adjust cookie preferences through your browser or any cookie settings tool we make available.
+Where required by law, we will ask for consent before using non-essential cookies or similar technologies. AskChef does not use imported recipe text, voice input, or cooking questions to target ads. You can also adjust cookie preferences through your browser or any cookie settings tool we make available.
 
 ## 9. App permissions and device features
 
@@ -215,7 +218,6 @@ To exercise your rights, contact us at **legal@ask-chef.com**. We may need to ve
 
 If California law applies to AskChef, California residents may have rights to know, access, correct, and delete personal information, and to opt out of the sale or sharing of personal information if those activities occur.
 
-**Launch language:**  
 AskChef does not sell or share personal information as those terms are defined under California law.
 
 ### Canada and Québec
@@ -228,7 +230,9 @@ AskChef is not directed to children under 13, and we do not knowingly collect pe
 
 ## 15. Third-party services and links
 
-The Services may link to third-party websites, tools, app stores, payment providers, or integrations. We are not responsible for the privacy practices of those third parties. We encourage you to read their privacy policies.
+The Services may link to third-party websites, tools, app stores, payment providers, advertising providers, or integrations. We are not responsible for the privacy practices of those third parties. We encourage you to read their privacy policies.
+
+For information about how Google uses information from apps that use Google services such as AdMob, visit **https://policies.google.com/technologies/partner-sites**.
 
 ## 16. Changes to this Privacy Policy
 
