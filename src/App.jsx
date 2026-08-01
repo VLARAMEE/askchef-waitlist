@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { trackEvent } from "./analytics";
-import { supabase } from "./supabase.Client";
 import askChefPhoneScreen from "./assets/askchef-phone-screen.png";
 import privacyPolicyMarkdown from "./legal/privacy-policy.md?raw";
 import termsOfUseMarkdown from "./legal/terms-of-use.md?raw";
 
 const SUPPORT_EMAIL = "support@ask-chef.com";
+const APP_STORE_URL =
+  "https://apps.apple.com/us/app/ask-chef-cooking-companion/id6761346875";
 
 const pageMeta = {
   home: {
     title: "AskChef | AI Cooking Assistant for Hands-Free, Voice-First Cooking",
     description:
-      "AskChef is an AI cooking assistant for hands-free, voice-first cooking. Ask recipe questions, get step-by-step guidance, and cook with less phone touching.",
+      "Download AskChef, the AI cooking assistant for hands-free, voice-first cooking. Ask recipe questions, get step-by-step guidance, and cook with less phone touching.",
     canonical: "https://www.ask-chef.com/",
   },
   support: {
@@ -413,10 +414,6 @@ function SiteShell({ currentPage, children }) {
 }
 
 function LandingPage() {
-  const [firstName, setFirstName] = useState("");
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState(null);
   const [activeFeatureIndex, setActiveFeatureIndex] = useState(0);
   const activeFeature = featureItems[activeFeatureIndex];
 
@@ -430,51 +427,8 @@ function LandingPage() {
     return () => window.clearInterval(timer);
   }, []);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const cleanFirstName = firstName.trim();
-    const cleanEmail = email.trim().toLowerCase();
-
-    if (!cleanFirstName || !cleanEmail) {
-      setSubmitMessage({
-        type: "error",
-        text: "Please enter both your first name and email.",
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
-    setSubmitMessage(null);
-
-    try {
-      const { error } = await supabase.from("waitlist_signups").insert([
-        { first_name: cleanFirstName, email: cleanEmail },
-      ]);
-
-      if (error) {
-        setSubmitMessage({
-          type: "error",
-          text: "Something went wrong. Please try again.",
-        });
-        return;
-      }
-
-      setFirstName("");
-      setEmail("");
-      trackEvent("waitlist_signup", { method: "waitlist_form" });
-      setSubmitMessage({
-        type: "success",
-        text: "You are on the waitlist. We will be in touch soon.",
-      });
-    } catch {
-      setSubmitMessage({
-        type: "error",
-        text: "Something went wrong. Please try again.",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handleAppStoreClick = () => {
+    trackEvent("app_store_download_click", { placement: "hero" });
   };
 
   return (
@@ -547,42 +501,16 @@ function LandingPage() {
               </article>
             </section>
 
-            <form className="signup-form" onSubmit={handleSubmit}>
-              <p className="fine-print signup-prompt">
-                Be the first to know when we launch.
-              </p>
-
-              <div className="form-grid">
-                <input
-                  className="input"
-                  disabled={isSubmitting}
-                  type="text"
-                  value={firstName}
-                  placeholder="First name"
-                  onChange={(event) => setFirstName(event.target.value)}
-                />
-                <input
-                  className="input"
-                  disabled={isSubmitting}
-                  type="email"
-                  value={email}
-                  placeholder="Email address"
-                  onChange={(event) => setEmail(event.target.value)}
-                />
-                <button className="button" type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Joining..." : "Notify me"}
-                </button>
-              </div>
-
-              {submitMessage ? (
-                <div
-                  className={`submit-message ${submitMessage.type}`}
-                  aria-live="polite"
-                >
-                  {submitMessage.text}
-                </div>
-              ) : null}
-            </form>
+            <a
+              className="button app-store-button"
+              href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleAppStoreClick}
+              aria-label="Download AskChef on the App Store"
+            >
+              Download AskChef on the App Store
+            </a>
           </div>
         </section>
 
@@ -952,8 +880,7 @@ export default function App() {
 
         h1,
         h2,
-        h3,
-        .signup-prompt {
+        h3 {
           text-wrap: balance;
         }
 
@@ -967,9 +894,9 @@ export default function App() {
 
         .hero-actions {
           display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          width: 100%;
-          gap: 16px;
+          grid-template-columns: 1fr;
+          width: min(100%, 340px);
+          gap: 12px;
           align-items: stretch;
           margin-top: 12px;
         }
@@ -1055,35 +982,10 @@ export default function App() {
           background: #0e3b31;
         }
 
-        .signup-form {
-          margin-top: 0;
-          padding-top: 17px;
-        }
-
-        .form-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 12px;
-        }
-
-        .input {
-          height: 50px;
-          padding: 0 16px;
-          border-radius: 18px;
-          border: 1px solid rgba(14, 59, 49, 0.12);
-          background: rgba(255,255,255,0.68);
-          color: #0e3b31;
-          font-size: 14px;
-          text-align: center;
-          outline: none;
-          box-shadow: 0 8px 20px rgba(14, 59, 49, 0.04);
-        }
-
-        .input::placeholder {
-          color: rgba(14, 59, 49, 0.72);
-        }
-
         .button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
           height: 50px;
           padding: 0 22px;
           border: 0;
@@ -1105,35 +1007,16 @@ export default function App() {
           cursor: wait;
         }
 
-        .fine-print {
-          margin: 14px 4px 0;
-          max-width: 520px;
-          font-size: 12px;
-          line-height: 1.5;
-          color: rgba(14, 59, 49, 0.56);
+        .app-store-button {
+          width: 100%;
+          min-height: 56px;
+          background: #0e3b31;
+          color: #fbf3e9;
+          box-shadow: 0 16px 34px rgba(14, 59, 49, 0.16);
         }
 
-        .signup-prompt {
-          margin: 0 0 12px;
-          font-size: 16px;
-          font-weight: 700;
-          line-height: 1.35;
-          text-align: center;
-          color: #003c32;
-        }
-
-        .submit-message {
-          margin: 12px 4px 0;
-          font-size: 13px;
-          line-height: 1.5;
-        }
-
-        .submit-message.success {
-          color: #0e3b31;
-        }
-
-        .submit-message.error {
-          color: #8a2c2c;
+        .app-store-button:hover {
+          background: #003c32;
         }
 
         .page-layout {
@@ -1361,6 +1244,22 @@ export default function App() {
         @media (max-width: 980px) {
           .hero {
             grid-template-columns: 1fr;
+            justify-items: center;
+          }
+
+          .hero-copy {
+            justify-items: center;
+            text-align: center;
+          }
+
+          .subtext,
+          .hero-actions {
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .carousel-card {
+            text-align: center;
           }
 
           h1 {
@@ -1477,10 +1376,6 @@ export default function App() {
 
           .hero-actions {
             grid-template-columns: 1fr;
-          }
-
-          .signup-form {
-            padding-top: 0;
           }
 
           .feature-carousel,
