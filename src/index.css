@@ -17,6 +17,7 @@
   --shadow-md: 0 24px 70px rgba(31, 59, 51, 0.13);
   --shadow-phone: 0 36px 90px rgba(9, 48, 40, 0.2);
   --page-pad: clamp(18px, 4vw, 48px);
+  --section-space: clamp(48px, 7vh, 72px);
   color: var(--text);
   background: var(--porcelain);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
@@ -70,7 +71,7 @@ button { border: 0; }
 .header-cta:hover { background: #e3ed8c; }
 .header-cta:active { transform: scale(0.97); }
 
-.hero-section { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); align-items: center; gap: clamp(24px, 4vw, 56px); padding-block: 28px 36px; }
+.hero-section { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); align-items: center; gap: clamp(24px, 4vw, 56px); padding-block: 28px var(--section-space); }
 .hero-copy { position: relative; z-index: 2; grid-column: 1; grid-row: 1; }
 .eyebrow { margin: 0 0 12px; color: var(--muted); font-size: 13px; font-weight: 680; letter-spacing: 0.01em; }
 .hero-copy h1 { max-width: 600px; margin: 0; color: var(--green); font-size: clamp(40px, 4.5vw, 60px); font-weight: 500; line-height: 1.12; letter-spacing: -0.025em; text-wrap: balance; }
@@ -122,7 +123,7 @@ button { border: 0; }
 .journey-label { display: block; font-size: 13px; font-weight: 400; line-height: 1.4; letter-spacing: .01em; }
 .journey-steps .icon { flex-shrink: 0; }
 
-.tour-section, .feature-section { padding-block: clamp(24px, 3.5vh, 36px); }
+.tour-section, .feature-section { padding-block: var(--section-space); }
 .section-heading h2, .feature-copy h2, .download-copy h2 {
   margin: 0;
   color: var(--green);
@@ -188,7 +189,7 @@ button { border: 0; }
 .import-screenshots figcaption { margin-top: 12px; color: var(--muted); text-align: center; font-size: 12px; line-height: 1.5; }
 
 .cook-feature { padding-block: 0; background: var(--green); color: white; }
-.cook-grid { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: clamp(36px, 5vw, 72px); padding-block: clamp(24px, 3.5vh, 36px); }
+.cook-grid { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: clamp(36px, 5vw, 72px); padding-block: var(--section-space); }
 .cook-visual { position: relative; display: grid; place-items: center; min-width: 0; }
 .cook-visual::before { content: ""; position: absolute; width: min(380px, 95%); aspect-ratio: 1; border-radius: 50%; background: rgba(221,237,228,.1); border: 1px solid rgba(255,255,255,.1); }
 .cook-visual .phone { position: relative; z-index: 2; width: clamp(172px, calc((100svh - 230px) * .44), 220px); border-radius: 32px; transform: rotate(-2deg); }
@@ -252,13 +253,11 @@ button { border: 0; }
 .legal-page { padding-block: 40px 80px; }.legal-document { max-width: 880px; margin: 0 auto; padding: clamp(26px,5vw,60px); border: 1px solid var(--line); border-radius: 28px; background: var(--bright); }.legal-document h1 { margin: 0 0 30px; color: var(--green); font-size: clamp(30px,4vw,42px); line-height: 1.02; letter-spacing: -.04em; }.legal-document h2 { margin: 40px 0 14px; padding-top: 26px; border-top: 1px solid var(--line); color: var(--green); font-size: 24px; }.legal-document h3 { margin: 28px 0 10px; color: var(--green); font-size: 17px; }.legal-document p, .legal-document li { color: var(--muted); font-size: 14px; line-height: 1.75; }.legal-document p { margin: 0; }.legal-document p + p { margin-top: 14px; }.legal-document ul, .legal-document ol { display: grid; gap: 8px; padding-left: 22px; }.legal-document strong { color: var(--text); }.legal-document a { text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
 
 @media (min-width: 821px) and (max-height: 700px) {
-  .tour-section, .import-section, .plan-feature { padding-block: 20px; }
   .tour-heading h2 { font-size: 28px; }
   .tour-panel { min-height: 0; padding-top: 16px; }
   .tour-copy h3 { font-size: 26px; }
   .tour-copy ul { gap: 6px; margin-block: 12px; }
   .import-screenshots { width: min(320px, 100%); }
-  .cook-grid { padding-block: 20px; }
 }
 
 @media (max-width: 1020px) {
@@ -283,7 +282,6 @@ button { border: 0; }
 
 /* Keep the text and app previews together through tablet and medium window widths. */
 @media (min-width: 621px) and (max-width: 1023px) {
-  .tour-section, .import-section, .plan-feature { padding-block: 28px; }
   .tour-panel { min-height: 0; gap: 24px; }
   .tour-visual .phone { width: clamp(164px, 25vw, 220px); max-width: 100%; }
   .section-heading h2, .feature-copy h2 { font-size: clamp(26px, 3.5vw, 32px); }
@@ -297,7 +295,7 @@ button { border: 0; }
   .import-screenshots { grid-column: 2; grid-row: 1; width: 100%; gap: 16px; }
   .import-screenshots .real-app-screen { border-radius: 20px; }
 
-  .cook-grid { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 24px; padding-block: 28px; }
+  .cook-grid { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 24px; }
   .cook-visual .phone { width: clamp(164px, 25vw, 210px); max-width: 90%; }
   .feature-copy { min-width: 0; }
   .feature-details article { grid-template-columns: 30px minmax(0, 1fr); gap: 10px; padding: 10px; }
@@ -317,20 +315,20 @@ button { border: 0; }
   .flow-connector span { width: 28px; height: 28px; }
   .flow-connector small { font-size: 10px; }
 
-  .download-card { gap: 24px; padding: 28px; }
+  .download-card { gap: 24px; padding: var(--section-space) 28px; }
   .download-copy h2 { font-size: 30px; }
   .download-copy > p:last-child { margin-top: 14px; font-size: 14px; }
   .download-action .primary-button { padding-inline: 14px; font-size: 13px; }
 }
 
 @media (max-width: 620px) {
-  :root { --page-pad: 18px; }
+  :root { --page-pad: 18px; --section-space: 56px; }
   .header-inner { min-height: 60px; padding: 8px var(--page-pad); }
   .brand-lockup.compact img { width: 32px; height: 32px; }
   .brand-lockup.compact span { font-size: 16px; }
   .brand-text small { font-size: 10px; }
   .header-cta { min-height: 44px; padding: 0 13px; border-radius: 13px; font-size: 12px; }
-  .hero-section { grid-template-columns: 1fr; padding-block: 22px 28px; gap: 18px; text-align: center; }
+  .hero-section { grid-template-columns: 1fr; padding-block: 22px var(--section-space); gap: 18px; text-align: center; }
   .hero-copy { grid-column: 1; grid-row: 1; }
   .hero-copy h1 { max-width: 420px; margin-inline: auto; font-size: clamp(30px, 8vw, 40px); }
   .hero-lede { max-width: 420px; margin: 14px auto 0; font-size: 15px; line-height: 1.5; }
@@ -342,7 +340,6 @@ button { border: 0; }
   .hero-journey { max-width: 420px; margin: 22px auto 0; align-items: center; gap: 16px; }
   .journey-steps { gap: 24px 28px; }
   .journey-icon { width: 32px; height: 32px; border-radius: 10px; }
-  .tour-section, .feature-section { padding-block: 48px; }
   .section-heading h2, .feature-copy h2, .download-copy h2 { font-size: clamp(28px, 7.5vw, 36px); }
   .section-heading > p:last-child { font-size: 15px; }
   .tour-tabs { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 3px; padding: 4px; }
@@ -375,9 +372,9 @@ button { border: 0; }
   .plan-benefits { grid-template-columns: 1fr; }
   .flow-card { padding: 18px; }
   .download-section { width: 100%; padding-bottom: 0; }
-  .download-card { grid-template-columns: 1fr; border-radius: 0; padding: 48px 18px; gap: 28px; }
+  .download-card { grid-template-columns: 1fr; border-radius: 0; padding: var(--section-space) 18px; gap: 28px; }
   .download-action { justify-items: start; }
-  .site-footer { padding-top: 40px; }
+  .site-footer { padding-top: var(--section-space); }
   .footer-nav-grid { grid-template-columns: 1fr 1fr; row-gap: 30px; }
   .footer-bottom { flex-direction: column; gap: 8px; }
   .standard-page { padding-block: 32px 56px; }
