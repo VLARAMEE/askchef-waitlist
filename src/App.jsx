@@ -1,10 +1,14 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { trackEvent } from "./analytics";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { trackEvent } from "./analytics";
+import askChefPhoneScreen from "./assets/askchef-phone-screen.png";
 import privacyPolicyMarkdown from "./legal/privacy-policy.md?raw";
 import termsOfUseMarkdown from "./legal/terms-of-use.md?raw";
 
 const SUPPORT_EMAIL = "support@ask-chef.com";
-const APP_STORE_URL = "https://apps.apple.com/app/id6761346875";
+const APP_STORE_URL =
+  "https://apps.apple.com/us/app/ask-chef-cooking-companion/id6761346875";
 
 const appScreenshots = {
   recipes: { src: "cookbook", alt: "AskChef Cookbook showing saved recipes with food photos" },
@@ -19,7 +23,7 @@ const pageMeta = {
   home: {
     title: "AskChef | Your Recipe and Cooking Companion",
     description:
-      "Save recipes from anywhere, cook with hands-free guidance, plan meals, and turn your plan into a grocery list with AskChef.",
+      "Save recipes from anywhere, cook with hands-free guidance, and plan meals with AskChef—the AI cooking companion for voice-first cooking."
     canonical: "https://www.ask-chef.com/",
   },
   support: {
@@ -235,10 +239,13 @@ function AppScreen({ type = "recipes", className = "", label }) {
 }
 
 function LandingPage() {
-  const [activeFeature, setActiveFeature] = useState("recipes");
-  const [verticalTabs, setVerticalTabs] = useState(() => window.matchMedia("(min-width: 1024px)").matches);
-  const active = featureTour.find((feature) => feature.id === activeFeature) || featureTour[0];
-  const featureIcon = (id) => id === "recipes" ? "book" : id === "cook" ? "mic" : id === "plan" ? "calendar" : "basket";
+const [activeFeatureIndex, setActiveFeatureIndex] = useState(0);
+const [verticalTabs, setVerticalTabs] = useState(() =>
+  window.matchMedia("(min-width: 1024px)").matches
+);
+const activeFeature = featureItems[activeFeatureIndex] ?? featureItems[0];
+const featureIcon = (id) =>
+  id === "recipes" ? "book" : id === "cook" ? "mic" : id === "plan" ? "calendar" : "basket";
 
   useEffect(() => {
     const media = window.matchMedia("(min-width: 1024px)");
@@ -247,17 +254,21 @@ function LandingPage() {
     return () => media.removeEventListener("change", updateOrientation);
   }, []);
 
-  useEffect(() => {
-    const target = document.getElementById(window.location.hash.slice(1));
-    target?.scrollIntoView({ block: "start", behavior: "instant" });
-  }, []);
+  const handleAppStoreClick = () => {
+    trackEvent("app_store_download_click", { placement: "hero" });
+  };
 
   return (
     <SiteShell currentPage="home">
-      <section className="hero-section section-shell" aria-labelledby="hero-title">
-        <div className="hero-copy">
-          <h1 id="hero-title">One calm place to cook.</h1>
-          <p className="hero-lede">From inspiration to dinner, without stitching together four different apps. Bring your recipes together, plan what’s next, and get a little help while you cook.</p>
+      <section className="hero">
+        <section className="hero-copy">
+          <h1>One calm place to cook.</h1>
+          <p className="subtext">
+            From inspiration to dinner, without stitching together four different apps.
+            Bring your recipes together, plan what’s next, and get a little help while
+            you cook.
+          </p>
+
           <section className="hero-journey journey-inner" aria-label="AskChef product journey">
             <ol className="journey-steps">
               <li><span className="journey-icon"><Icon name="book" size={18} /></span><span className="journey-label">Save recipes from anywhere</span></li>
@@ -266,10 +277,95 @@ function LandingPage() {
               <li><span className="journey-icon"><Icon name="pot" size={18} /></span><span className="journey-label">Cook with clear answers</span></li>
             </ol>
           </section>
-        </div>
-        <div className="hero-visual" aria-label="AskChef app previews">
-          <div className="hero-halo" /><AppScreen type="recipes" className="hero-phone" />
-        </div>
+
+          <div className="hero-actions">
+            <section className="feature-carousel" aria-label="AskChef features">
+              <article className="carousel-card">
+                <h3>{activeFeature.title}</h3>
+                <p>{activeFeature.description}</p>
+
+                <div className="carousel-footer">
+                  <div className="carousel-dots" aria-label="Choose a feature">
+                    {featureItems.map((feature, index) => (
+                      <button
+                        className={`carousel-dot ${
+                          index === activeFeatureIndex ? "active" : ""
+                        }`}
+                        type="button"
+                        aria-pressed={index === activeFeatureIndex}
+                        aria-label={`Show feature ${index + 1}: ${feature.title}`}
+                        key={feature.title}
+                        onClick={() => setActiveFeatureIndex(index)}
+                      />
+                    ))}
+                  </div>
+
+                  <div className="carousel-controls">
+                    <button
+                      className="carousel-button"
+                      type="button"
+                      aria-label="Previous feature"
+                      onClick={() =>
+                        setActiveFeatureIndex((currentIndex) => {
+                          return (
+                            (currentIndex - 1 + featureItems.length) %
+                            featureItems.length
+                          );
+                        })
+                      }
+                    >
+                      <span aria-hidden="true">&lt;</span>
+                    </button>
+                    <button
+                      className="carousel-button"
+                      type="button"
+                      aria-label="Next feature"
+                      onClick={() =>
+                        setActiveFeatureIndex((currentIndex) => {
+                          return (currentIndex + 1) % featureItems.length;
+                        })
+                      }
+                    >
+                      <span aria-hidden="true">&gt;</span>
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </section>
+
+            <a
+              className="button app-store-button"
+              href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleAppStoreClick}
+              aria-label="Download AskChef on the App Store"
+            >
+              Download AskChef on the App Store
+            </a>
+          </div>
+        </section>
+
+        <section>
+          <div className="phone-wrap">
+            <div className="phone-glow"></div>
+
+            <div className="phone-shell">
+              <div className="phone-inner">
+                <div className="screen">
+                  <img
+                    className="screen-image"
+                    src={askChefPhoneScreen}
+                    alt="AskChef ingredients screen"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section className="tour-section" id="explore" aria-labelledby="tour-heading">
       </section>
 
       <section className="tour-section" id="explore" aria-labelledby="tour-heading">
@@ -403,11 +499,716 @@ function LegalDocumentPage({ documentKey }) {
 
 export default function App() {
   const pathname = normalizePathname(window.location.pathname);
-  const pageKey = { "/support": "support", "/what-we-do": "whatWeDo", "/faq": "faq", "/terms": "terms", "/privacy": "privacy" }[pathname] || "home";
-  useEffect(() => { if (redirectApexToWww()) return; applyPageMeta(pageMeta[pageKey]); }, [pageKey]);
-  if (pageKey === "support") return <SupportPage />;
-  if (pageKey === "whatWeDo") return <WhatWeDoPage />;
-  if (pageKey === "faq") return <FaqPage />;
-  if (pageKey === "terms" || pageKey === "privacy") return <LegalDocumentPage documentKey={pageKey} />;
-  return <LandingPage />;
+  const pageKey =
+    {
+      "/support": "support",
+      "/what-we-do": "whatWeDo",
+      "/faq": "faq",
+      "/terms": "terms",
+      "/privacy": "privacy",
+    }[pathname] || "home";
+
+  useEffect(() => {
+    if (redirectApexToWww()) {
+      return;
+    }
+
+    applyPageMeta(pageMeta[pageKey]);
+  }, [pageKey]);
+
+  return (
+    <>
+      <style>{`
+        html,
+        body,
+        #root {
+          margin: 0;
+          padding: 0;
+          border: 0;
+          outline: none;
+          width: 100%;
+          max-width: 100%;
+          overflow-x: clip;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+          letter-spacing: 0;
+          background: #fbf3e9;
+          color: #0e3b31;
+          overflow-x: hidden;
+        }
+
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+
+        .page {
+          width: 100%;
+          max-width: 100%;
+          min-height: 100vh;
+          border: 0;
+          outline: none;
+          overflow-x: clip;
+          background:
+            radial-gradient(circle at top, rgba(14, 59, 49, 0.10), transparent 30%),
+            radial-gradient(circle at 80% 20%, rgba(0, 60, 50, 0.08), transparent 25%),
+            linear-gradient(to bottom, rgba(255,255,255,0.35), transparent);
+        }
+
+        .container {
+          max-width: 1240px;
+          margin: 0 auto;
+          padding: 24px;
+          text-align: left;
+        }
+
+        .site-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 18px;
+          margin-bottom: 28px;
+          padding: 12px 20px;
+          border-radius: 24px;
+          background: #0e3b31;
+          border: 1px solid rgba(251, 243, 233, 0.18);
+          box-shadow: 0 16px 34px rgba(14, 59, 49, 0.16);
+        }
+
+        .brand {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          color: #fbf3e9;
+          font-weight: 800;
+          font-size: 19px;
+          white-space: nowrap;
+        }
+
+        .brand-mark {
+          width: 36px;
+          height: 36px;
+          border-radius: 12px;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+        }
+
+        .site-nav {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          padding: 0;
+        }
+
+        .site-nav a {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 30px;
+          padding: 0;
+          color: rgba(251, 243, 233, 0.82);
+          font-size: 14px;
+          font-weight: 700;
+        }
+
+        .site-nav a:hover,
+        .site-nav a[aria-current="page"] {
+          color: #fbf3e9;
+          text-decoration: underline;
+          text-underline-offset: 5px;
+        }
+
+        .site-footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 18px;
+          margin-top: 28px;
+          padding: 26px 0 10px;
+          color: rgba(14, 59, 49, 0.62);
+          font-size: 13px;
+        }
+
+        .site-footer div {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        .site-footer strong {
+          color: #003c32;
+          font-size: 15px;
+        }
+
+        .site-footer span {
+          line-height: 1.4;
+        }
+
+        .footer-links {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+
+        .footer-links a {
+          color: #0e3b31;
+          font-weight: 700;
+        }
+
+        .footer-placeholder {
+          color: rgba(14, 59, 49, 0.46);
+        }
+
+        .hero {
+          display: grid;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 44px;
+          align-items: center;
+          padding: 0 0 32px;
+        }
+
+        .hero-copy {
+          display: grid;
+          gap: 16px;
+          align-content: start;
+        }
+
+        h1 {
+          margin: 0;
+          max-width: none;
+          font-size: 48px;
+          line-height: 1.04;
+          letter-spacing: 0;
+          color: #003c32;
+        }
+
+        h1,
+        h2,
+        h3 {
+          text-wrap: balance;
+        }
+
+        .subtext {
+          margin: 0;
+          max-width: 700px;
+          font-size: 18px;
+          line-height: 1.7;
+          color: rgba(14, 59, 49, 0.78);
+        }
+
+        .hero-actions {
+          display: grid;
+          grid-template-columns: 1fr;
+          width: min(100%, 340px);
+          gap: 12px;
+          align-items: stretch;
+          margin-top: 12px;
+        }
+
+        .feature-carousel,
+        .carousel-card {
+          height: 100%;
+          min-height: 228px;
+        }
+
+        .carousel-card {
+          display: flex;
+          flex-direction: column;
+          padding: 16px;
+          border-radius: 24px;
+          background: rgba(255,255,255,0.76);
+          border: 1px solid rgba(14, 59, 49, 0.10);
+          box-shadow: 0 12px 28px rgba(14, 59, 49, 0.06);
+        }
+
+        .carousel-footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+          margin-top: auto;
+          padding-top: 16px;
+        }
+
+        .carousel-controls {
+          display: flex;
+          gap: 5px;
+        }
+
+        .carousel-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 30px;
+          height: 30px;
+          border: 1px solid rgba(14, 59, 49, 0.14);
+          border-radius: 12px;
+          background: transparent;
+          color: #0e3b31;
+          font-size: 16px;
+          cursor: pointer;
+        }
+
+        .carousel-button:hover {
+          background: rgba(14, 59, 49, 0.08);
+        }
+
+        .carousel-card h3 {
+          margin: 0 0 8px;
+          font-size: 16px;
+          line-height: 1.35;
+          color: #003c32;
+        }
+
+        .carousel-card p {
+          margin: 0;
+          font-size: 14px;
+          line-height: 1.65;
+          color: rgba(14, 59, 49, 0.70);
+        }
+
+        .carousel-dots {
+          display: flex;
+          gap: 7px;
+        }
+
+        .carousel-dot {
+          width: 24px;
+          height: 5px;
+          padding: 0;
+          border: 0;
+          border-radius: 999px;
+          background: rgba(14, 59, 49, 0.18);
+          cursor: pointer;
+        }
+
+        .carousel-dot.active {
+          background: #0e3b31;
+        }
+
+        .button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 50px;
+          padding: 0 22px;
+          border: 0;
+          border-radius: 18px;
+          background: #0e3b31;
+          color: #fbf3e9;
+          font-weight: 600;
+          font-size: 14px;
+          white-space: nowrap;
+          cursor: pointer;
+        }
+
+        .button:hover {
+          background: #003c32;
+        }
+
+        .button:disabled {
+          opacity: 0.8;
+          cursor: wait;
+        }
+
+        .app-store-button {
+          width: 100%;
+          min-height: 56px;
+          background: #0e3b31;
+          color: #fbf3e9;
+          box-shadow: 0 16px 34px rgba(14, 59, 49, 0.16);
+        }
+
+        .app-store-button:hover {
+          background: #003c32;
+        }
+
+        .page-layout {
+          padding: 0 0 32px;
+        }
+
+        .section-panel,
+        .faq-section,
+        .support-panel,
+        .legal-document {
+          border-radius: 28px;
+          background: rgba(255,255,255,0.72);
+          border: 1px solid rgba(14, 59, 49, 0.10);
+          box-shadow: 0 12px 28px rgba(14, 59, 49, 0.06);
+        }
+
+        .section-panel,
+        .faq-section,
+        .support-panel,
+        .legal-document {
+          padding: 24px;
+        }
+
+        .section-panel h1,
+        .faq-section h1,
+        .support-panel h1,
+        .legal-document h1 {
+          margin: 0 0 12px;
+          font-size: 42px;
+          line-height: 1.08;
+          letter-spacing: 0;
+          color: #003c32;
+        }
+
+        .legal-document h2 {
+          margin: 28px 0 10px;
+          padding-top: 20px;
+          border-top: 1px solid rgba(14, 59, 49, 0.10);
+          font-size: 24px;
+          line-height: 1.25;
+          color: #003c32;
+        }
+
+        .legal-document h3 {
+          margin: 22px 0 8px;
+          font-size: 18px;
+          line-height: 1.35;
+          color: #003c32;
+        }
+
+        .section-panel h2,
+        .faq-section h2,
+        .support-row h2 {
+          margin: 0 0 12px;
+          font-size: 28px;
+          line-height: 1.15;
+          letter-spacing: 0;
+          color: #003c32;
+        }
+
+        .content-item,
+        .faq-row,
+        .support-row {
+          margin-top: 18px;
+          padding-top: 18px;
+          border-top: 1px solid rgba(14, 59, 49, 0.10);
+        }
+
+        .content-item h2,
+        .faq-row h2 {
+          margin: 0 0 8px;
+          font-size: 18px;
+          line-height: 1.35;
+          color: #003c32;
+        }
+
+        .content-item p,
+        .faq-row p,
+        .support-row p,
+        .legal-document p,
+        .legal-document li {
+          margin: 0;
+          font-size: 16px;
+          line-height: 1.75;
+          color: rgba(14, 59, 49, 0.74);
+        }
+
+        .content-item p + p,
+        .support-row p + p,
+        .legal-document p + p {
+          margin-top: 14px;
+        }
+
+        .legal-document ul,
+        .legal-document ol {
+          display: grid;
+          gap: 8px;
+          margin: 12px 0 0;
+          padding-left: 22px;
+          color: rgba(14, 59, 49, 0.74);
+        }
+
+        .legal-document strong {
+          color: #003c32;
+        }
+
+        .faq-section {
+          margin-top: 18px;
+        }
+
+        .phone-wrap {
+          position: relative;
+          width: 320px;
+          margin: 0 auto;
+        }
+
+        .phone-glow {
+          position: absolute;
+          inset: -24px;
+          background: rgba(14, 59, 49, 0.12);
+          filter: blur(40px);
+          border-radius: 56px;
+        }
+
+        .phone-shell {
+          position: relative;
+          width: 320px;
+          height: 650px;
+          padding: 10px;
+          border-radius: 46px;
+          background: linear-gradient(180deg, #173f36 0%, #0e3b31 100%);
+          border: 1px solid rgba(14, 59, 49, 0.16);
+          box-shadow: 0 26px 70px rgba(14, 59, 49, 0.18);
+        }
+
+        .phone-inner {
+          position: relative;
+          height: 100%;
+          overflow: hidden;
+          border-radius: 36px;
+          background: #f7efe4;
+          border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .screen {
+          position: relative;
+          height: 100%;
+          overflow: hidden;
+          background: #f7efe4;
+        }
+
+        .screen-image {
+          display: block;
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+          object-position: top center;
+        }
+
+        .support-lede {
+          margin: 0 0 14px;
+          max-width: 700px;
+          font-size: 19px;
+          line-height: 1.65;
+          color: rgba(14, 59, 49, 0.78);
+        }
+
+        .support-email-inline {
+          display: inline;
+          color: #003c32;
+          font-weight: 800;
+          overflow-wrap: anywhere;
+        }
+
+        .support-email-inline:hover {
+          text-decoration: underline;
+          text-underline-offset: 3px;
+        }
+
+        .support-response {
+          color: rgba(14, 59, 49, 0.62);
+        }
+
+        .topic-list {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 10px 18px;
+          margin: 16px 0 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        .topic-list li {
+          position: relative;
+          min-height: 30px;
+          padding-left: 18px;
+          color: rgba(14, 59, 49, 0.76);
+          font-size: 15px;
+          line-height: 1.55;
+        }
+
+        .topic-list li::before {
+          content: "";
+          position: absolute;
+          top: 9px;
+          left: 0;
+          width: 7px;
+          height: 7px;
+          border-radius: 999px;
+          background: #0e3b31;
+        }
+
+        .legal-inline {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-top: 14px;
+        }
+
+        .legal-inline a,
+        .legal-placeholder {
+          color: rgba(14, 59, 49, 0.70);
+        }
+
+        @media (max-width: 980px) {
+          .hero {
+            grid-template-columns: 1fr;
+            justify-items: center;
+          }
+
+          .hero-copy {
+            justify-items: center;
+            text-align: center;
+          }
+
+          .subtext,
+          .hero-actions {
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .carousel-card {
+            text-align: center;
+          }
+
+          h1 {
+            font-size: 44px;
+          }
+
+          .topic-list {
+            grid-template-columns: 1fr;
+          }
+
+        }
+
+        @media (max-width: 640px) {
+          .container {
+            padding: 18px;
+          }
+
+          .site-header {
+            align-items: center;
+            flex-direction: row;
+            gap: 8px;
+            padding: 10px 20px;
+          }
+
+          .brand {
+            gap: 7px;
+            font-size: 15px;
+          }
+
+          .brand-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 10px;
+          }
+
+          .site-nav {
+            flex: 1;
+            justify-content: flex-end;
+            width: auto;
+            gap: 7px;
+            padding: 0;
+          }
+
+          .site-nav a {
+            flex: 0 1 auto;
+            min-height: 30px;
+            padding: 0;
+            font-size: 11px;
+            white-space: nowrap;
+          }
+
+          .site-footer {
+            align-items: flex-start;
+            flex-direction: column;
+          }
+
+          .footer-links {
+            justify-content: flex-start;
+          }
+
+          h1 {
+            font-size: 28px;
+          }
+
+          .subtext,
+          .content-item p,
+          .faq-row p,
+          .support-row p {
+            font-size: 16px;
+          }
+
+          .section-panel,
+          .faq-section,
+          .support-panel,
+          .legal-document {
+            padding: 18px;
+          }
+
+          .section-panel h2,
+          .faq-section h2,
+          .support-row h2 {
+            font-size: 24px;
+          }
+
+          .section-panel h1,
+          .faq-section h1,
+          .support-panel h1,
+          .legal-document h1 {
+            font-size: 32px;
+          }
+
+          .legal-document h2 {
+            font-size: 22px;
+          }
+
+          .support-lede {
+            font-size: 17px;
+          }
+
+          .phone-wrap,
+          .phone-shell {
+            width: 290px;
+          }
+
+          .phone-shell {
+            height: 590px;
+          }
+        }
+
+        @media (max-width: 520px) {
+          h1 {
+            font-size: 22px;
+          }
+
+          .hero-actions {
+            grid-template-columns: 1fr;
+          }
+
+          .feature-carousel,
+          .carousel-card {
+            min-height: 210px;
+          }
+        }
+      `}</style>
+
+      {pageKey === "support" ? (
+        <SupportPage />
+      ) : pageKey === "whatWeDo" ? (
+        <WhatWeDoPage />
+      ) : pageKey === "faq" ? (
+        <FaqPage />
+      ) : pageKey === "terms" || pageKey === "privacy" ? (
+        <LegalDocumentPage documentKey={pageKey} />
+      ) : (
+        <LandingPage />
+      )}
+    </>
+  );
 }
