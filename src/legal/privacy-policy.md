@@ -1,7 +1,8 @@
 # AskChef Privacy Policy
 
-**Effective date:** May 13, 2026  
-**Last updated:** July 2, 2026
+**Effective date:** September 7, 2026
+
+**Last updated:** September 7, 2026
 
 AskChef ("**AskChef**," "**we**," "**our**," or "**us**") respects your privacy. This Privacy Policy explains how we collect, use, disclose, and protect personal information when you use the AskChef mobile application, the AskChef website at **ask-chef.com**, and any related services, features, content, communications, or support channels that link to this Privacy Policy (collectively, the "**Services**").
 
@@ -11,11 +12,13 @@ Please read this Privacy Policy carefully. By using the Services, you acknowledg
 
 AskChef is an AI cooking assistant designed to help users import recipes, organize cooking information, and receive voice or text-based cooking help.
 
-**Organization:**  
-Initiatives VLA inc.  
-**Privacy Officer:**  
-legal@ask-chef.com
+**Organization:**
 
+Initiatives VLA inc.
+
+**Privacy Officer:**
+
+legal@ask-chef.com
 ## 2. Scope
 
 This Privacy Policy applies to personal information we collect through:
@@ -73,7 +76,7 @@ We use personal information for the following purposes:
 - to process your voice and text questions and generate cooking assistance;
 - to personalize your experience, including units, temperature format, voice options, and other settings;
 - to support recipe import, OCR, image processing, and other requested features;
-- to serve non-personalized or contextual ads, limit repeated ads, measure aggregate ad delivery, prevent advertising fraud, and manage ad safety;
+- to serve non-personalized or contextual ads and, only after obtaining any required consent and App Tracking Transparency authorization, personalized ads; limit repeated ads; measure ad delivery; prevent advertising fraud; and manage ad safety;
 - to communicate with you about your account, transactions, support requests, updates, and important service notices;
 - to send marketing or promotional communications where permitted by law and subject to your choices;
 - to monitor performance, troubleshoot bugs, analyze usage, and improve reliability and product design;
@@ -95,7 +98,11 @@ This means that recipe content, text prompts, voice inputs, transcripts, images,
 
 AskChef does **not** use solely automated processing to make decisions about you that produce legal or similarly significant effects.
 
-As of the Effective Date, AskChef may use Google AdMob to show non-personalized or contextual ads. The Google Mobile Ads SDK and Google advertising partners may process limited device, advertising, and interaction data, such as IP address, app- or device-bounded identifiers, ads viewed, ad interactions, diagnostics, and performance data. This processing supports ad delivery, frequency control, aggregate measurement, fraud prevention, and ad safety. AskChef does not use your recipe content, voice content, or question content for behavioral ad targeting, cross-context behavioral advertising, or ad personalization.
+AskChef may use Google AdMob to show ads. Personalized ads may be shown only after AskChef obtains any consent required by applicable law and, on Apple devices, you authorize tracking through Apple's App Tracking Transparency framework. If you deny or do not grant App Tracking Transparency authorization, AskChef requests only non-personalized or contextual ads.
+
+The Google Mobile Ads SDK and Google advertising partners may process device identifiers, IP address, approximate location, ads viewed, ad interactions, consent choices, diagnostics, and performance data. This processing supports personalized or non-personalized ad delivery, frequency control, measurement, fraud prevention, and ad safety, depending on your choices and applicable law.
+
+AskChef does not use your recipe content, voice input, or cooking questions for ad targeting or ad personalization.
 
 AskChef may use aggregated or de-identified data to analyze usage, improve features, and develop the Services. If we ever want to use personal content beyond providing the Services you requested, we will update this Privacy Policy and obtain any consent required by law.
 
@@ -153,17 +160,28 @@ We may use and disclose de-identified or aggregated information that does not re
 
 ## 8. Cookies, advertising, analytics, and similar technologies
 
-In the app and on our website, we and our service providers, including Google AdMob, may use SDKs, cookies, pixels, local storage, and similar technologies to:
+In the app and on our website, we and our service providers, including Google AdMob and Google Analytics for Firebase, may use SDKs, cookies, pixels, local storage, and similar technologies to:
 
 - keep the website working;
 - remember preferences;
 - serve non-personalized or contextual ads;
+- serve personalized ads only after obtaining any required consent and App Tracking Transparency authorization;
 - measure ad delivery and help prevent inappropriate ads;
 - understand usage and performance;
 - measure campaigns or referrals; and
 - improve the user experience.
 
-Where required by law, we will ask for consent before using non-essential cookies or similar technologies. AskChef does not use imported recipe text, voice input, or cooking questions to target ads. You can also adjust cookie preferences through your browser or any cookie settings tool we make available.
+Where required by law, we will ask for consent before using non-essential cookies or similar technologies. AskChef does not use imported recipe text, voice input, or cooking questions to target ads. You can revisit regulatory advertising choices through **Settings** in AskChef. On Apple devices, you can also change AskChef's tracking permission in your device settings. You can adjust website cookie preferences through your browser or any cookie settings tool we make available.
+
+### App analytics and campaign measurement
+
+App analytics is on by default after you accept the current Privacy Policy, unless you have turned it off. When app analytics is enabled, AskChef uses its own analytics service hosted on Supabase and Google Analytics for Firebase to understand feature use and improve the app. We record actions such as saving an imported recipe and receiving a cooking answer. These analytics events do not include recipe text, recipe URLs, images, audio, transcripts, or the content of your cooking questions. Our first-party analytics may associate activity with your AskChef account after sign-in. We do not send your AskChef account ID, name, or email address to Firebase Analytics.
+
+Firebase Analytics uses an identifier for an installation of the app and may collect app and device information, session and engagement activity, approximate location derived from IP addresses, and automatic purchase or subscription events. These automatic events can include product information and price. This is separate from the content you provide to use cooking features.
+
+We may use eligible analytics information with our linked Google Ads account to measure the effectiveness of AskChef campaigns, subject to applicable consent choices and platform permissions. Our current Firebase configuration does not grant advertising storage, advertising user-data use, or ad personalization. Permission to collect product analytics is separate from permission for advertising uses and Apple's tracking permission.
+
+You can turn off app analytics using **Settings > Preferences > Share product analytics**. Turning it off stops future optional analytics collection in the app and resets locally stored Firebase analytics data. It does not automatically erase information already received by our service providers. To request deletion of previously collected information, contact **legal@ask-chef.com**; we will explain the available process and any information needed to identify the relevant records. Analytics choices do not disable account, security, payment, or other processing necessary to provide requested services.
 
 ## 9. App permissions and device features
 
@@ -218,7 +236,7 @@ To exercise your rights, contact us at **legal@ask-chef.com**. We may need to ve
 
 If California law applies to AskChef, California residents may have rights to know, access, correct, and delete personal information, and to opt out of the sale or sharing of personal information if those activities occur.
 
-AskChef does not sell or share personal information as those terms are defined under California law.
+AskChef does not sell personal information. Where allowed and only after obtaining any required consent, AskChef may disclose device identifiers and advertising interaction data to Google and its advertising partners for personalized advertising. California residents can use **Settings** in AskChef to revisit available regulatory advertising choices.
 
 ### Canada and Québec
 
@@ -242,5 +260,7 @@ We may update this Privacy Policy from time to time. If we make material changes
 
 If you have questions, requests, or complaints about this Privacy Policy or our privacy practices, please contact:
 
-**Privacy Officer**  
+**Privacy Officer**
+
 legal@ask-chef.com
+
